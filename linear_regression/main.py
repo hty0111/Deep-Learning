@@ -2,7 +2,7 @@ import torch
 import matplotlib.pyplot as plt
 import numpy as np
 import random
-from d2l import torch as d2l
+# from d2l import torch as d2l
 from torch.utils import data
 from torch import nn
 
