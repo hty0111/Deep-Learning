@@ -1,5 +1,4 @@
 import argparse
-import torch
 import os
 
 class BaseConfig():
@@ -22,7 +21,7 @@ class BaseConfig():
         parser.add_argument("--batch_size", type=int,   default=4)
         parser.add_argument("--epochs",     type=int,   default=20)
         parser.add_argument("--lr",         type=float, default=0.01)
-        parser.add_argument("--gpus",       type=str,   default="0")
+        parser.add_argument("--gpus",       type=str,   default="1")
         self.initialized = True
         return parser
 
