@@ -1,11 +1,7 @@
 import torch
 import numpy as np
-import os
-import sys
 from torch.utils.data import Dataset
-BASE_DIR = os.path.dirname(os.path.abspath(os.path.dirname(os.path.abspath(__file__))))
-sys.path.append(BASE_DIR)
-from config.trainConfig import TrainConfig
+from matplotlib import pyplot as plt
 
 class LinearDataset(Dataset):
     def __init__(self, args):
@@ -24,10 +20,10 @@ class LinearDataset(Dataset):
 
     def generate_dataset(self, w, b, num):
         """y = x * w + b"""
-        w = torch.tensor(np.array(w), dtype=torch.float32).T
+        w = torch.tensor(np.array(w).T, dtype=torch.float32)
         b = torch.tensor(np.array(b), dtype=torch.float32)
         x = torch.normal(0, 1, (num, len(w)))
-        y = torch.matmul(x, w) + b + torch.normal(0, 0.01, (x.shape[0],))
+        y = torch.matmul(x, w) + b + torch.normal(0, 1, (x.shape[0],))
         return x, y
 
 if __name__=="__main__":

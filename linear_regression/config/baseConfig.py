@@ -1,5 +1,6 @@
 import argparse
 import torch
+import os
 
 class BaseConfig():
     def __init__(self) -> None:
@@ -10,17 +11,18 @@ class BaseConfig():
             parser = self.initialize()   
         args = parser.parse_args()
         self.printArgs(args)
-        self.setGPU(args)
+        os.environ["CUDA_VISIBLE_DEVICES"] = args.gpus
         return args
     
     def initialize(self):
         parser = argparse.ArgumentParser(description="Basic arguments", formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-        parser.add_argument("--data_root",  type=str,   default="./datasets", help="Root of datasets")
-        parser.add_argument("--model_root", type=str,   default="./checkpoints", help="Root of trained models.")
+        parser.add_argument("--data_root",  type=str,   default="./datasets",       help="Root of datasets")
+        parser.add_argument("--model_root", type=str,   default="./checkpoints",    help="Root of trained models")
+        parser.add_argument("--image_root", type=str,   default="./images",         help="Root of images")
         parser.add_argument("--batch_size", type=int,   default=4)
-        parser.add_argument("--epochs",     type=int,   default=100)
+        parser.add_argument("--epochs",     type=int,   default=20)
         parser.add_argument("--lr",         type=float, default=0.01)
-        parser.add_argument("--gpu",        type=str,   default="0")
+        parser.add_argument("--gpus",       type=str,   default="0")
         self.initialized = True
         return parser
 
@@ -32,12 +34,3 @@ class BaseConfig():
         message += '----------------- End -------------------'
         print(message)
 
-    def setGPU(self, args):
-        str_ids = args.gpu.split(',')
-        gpu_ids = []
-        for str_id in str_ids:
-            id = int(str_id)
-            if id >= 0:
-                gpu_ids.append(id)
-        if len(gpu_ids) > 0:
-            torch.cuda.set_device(gpu_ids[0])
