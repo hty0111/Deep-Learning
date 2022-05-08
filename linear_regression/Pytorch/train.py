@@ -13,6 +13,7 @@ def main():
     # config  
     # ###########  
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    device = "cpu"
     # print(torch.cuda.device_count())
     cfg = TrainConfig().getArgs()
 
@@ -24,7 +25,7 @@ def main():
     # print(next(iter(dataloader)))
     
     # ###########
-    # net
+    # model
     # ########### 
     model = nn.Sequential(nn.Linear(len(cfg.true_w), 1)).to(device)
     criterion = nn.MSELoss()

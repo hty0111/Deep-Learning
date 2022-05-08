@@ -18,7 +18,6 @@ class LinearDataset():
         return self.features[index], self.labels[index]
 
     def generate_dataset(self):
-        """y = x * w + b"""
         w = tf.constant(self.w, dtype=tf.float32)
         b = tf.constant(self.b)
         x = tf.zeros((self.num, len(w)), dtype=tf.float32)

@@ -13,7 +13,8 @@ class LinearDataset(Dataset):
         return self.num
 
     def __getitem__(self, index: int):
-        return self.features[index], self.labels[index]
+        features, labels = self.generate_dataset()
+        return features[index], labels[index]
 
     def generate_dataset(self):
         """y = x * w + b"""

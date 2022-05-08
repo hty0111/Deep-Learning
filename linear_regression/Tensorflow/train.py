@@ -22,7 +22,7 @@ def main():
     # print(next(iter(dataset)))
     
     # ###########
-    # net
+    # model
     # ########### 
     initializer = tf.initializers.RandomNormal(stddev=0.01)
     strategy = tf.distribute.MirroredStrategy()
