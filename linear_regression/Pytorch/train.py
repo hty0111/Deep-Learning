@@ -11,11 +11,10 @@ from matplotlib import pyplot as plt
 def main():
     # ###########
     # config  
-    # ###########  
+    # ########### 
+    cfg = TrainConfig().getArgs() 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    device = "cpu"
     # print(torch.cuda.device_count())
-    cfg = TrainConfig().getArgs()
 
     # ###########
     # load data  
