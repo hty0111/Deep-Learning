@@ -21,7 +21,9 @@ def main():
 
     # ###########
     # load data  
-    # ###########  
+    # ###########
+    if not os.path.exists(cfg.data_root):
+        os.mkdir(cfg.data_root)  
     train_dataset = torchvision.datasets.FashionMNIST(root=cfg.data_root, train=True, transform=transforms.ToTensor(), download=True)
     # print(len(train_dataset))
     train_loader = torch.utils.data.DataLoader(train_dataset, cfg.batch_size, shuffle=True, num_workers=cfg.num_workers)

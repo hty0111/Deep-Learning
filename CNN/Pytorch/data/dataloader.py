@@ -4,8 +4,8 @@ from matplotlib import pyplot as plt
 import os
 
 class FMnistDataset(Dataset):
-    def __init__(self, args):
-        self.data_root = args.data_root
+    def __init__(self, data_root):
+        self.data_root = data_root
 
     def __len__(self):
         # return self.num
@@ -20,3 +20,5 @@ class FMnistDataset(Dataset):
         print(os.getcwd())
         # return x, y
 
+if __name__=="__main__":
+    data_root = "../datasets/"

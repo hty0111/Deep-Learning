@@ -19,7 +19,7 @@ class BaseConfig():
         parser.add_argument("--model_root", type=str,   default="./checkpoints",    help="Root of trained models")
         parser.add_argument("--image_root", type=str,   default="./images",         help="Root of images")
         parser.add_argument("--batch_size", type=int,   default=256)
-        parser.add_argument("--epochs",     type=int,   default=30)
+        parser.add_argument("--epochs",     type=int,   default=20)
         parser.add_argument("--lr",         type=float, default=0.01)
         parser.add_argument("--gpus",       type=str,   default="0",                help="-1 means CPU")
         parser.add_argument("--num_workers",type=int,   default=4)

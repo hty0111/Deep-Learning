@@ -7,6 +7,8 @@ import torchvision
 from torchvision import transforms
 from config.baseConfig import BaseConfig
 from models.LeNet import LeNet
+from models.AlexNet import AlexNet
+from models.VGG import VGG
 from utils.label import Label
 from utils.metrics import Metrics
 from utils.visualize import Visualize
@@ -21,18 +23,29 @@ def main():
 
     # ###########
     # load data  
-    # ###########  
-    train_dataset = torchvision.datasets.FashionMNIST(root=cfg.data_root, train=True, transform=transforms.ToTensor(), download=True)
+    # ###########
+    if not os.path.exists(cfg.data_root):
+        os.mkdir(cfg.data_root)
+    trans = [transforms.ToTensor()]
+    if cfg.model_name != "LeNet":
+        trans.insert(0, transforms.Resize(224))
+    trans = transforms.Compose(trans)
+    train_dataset = torchvision.datasets.FashionMNIST(root=cfg.data_root, train=True, transform=trans, download=True)
     # print(len(train_dataset))
     train_loader = torch.utils.data.DataLoader(train_dataset, cfg.batch_size, shuffle=True, num_workers=cfg.num_workers)
-    x, y = next(iter(torch.utils.data.DataLoader(train_dataset, batch_size=20)))
-    label = Label(cfg)
-    label.show_labels(x.reshape(20, 28, 28), 2, 10, titles=label.get_fashion_mnist_labels(y))
+    # x, y = next(iter(torch.utils.data.DataLoader(train_dataset, batch_size=20)))
+    # label = Label(cfg)
+    # label.show_labels(x.reshape(20, 28, 28), 2, 10, titles=label.get_fashion_mnist_labels(y))
 
     # ###########
     # model
-    # ########### 
-    model = LeNet().to(device)
+    # ###########
+    if cfg.model_name == "LeNet":
+        model = LeNet().to(device)
+    elif cfg.model_name == "AlexNet":
+        model = AlexNet().to(device)
+    elif "VGG" in cfg.model_name:
+        model = VGG(cfg.model_name).to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=cfg.lr)
 
@@ -76,8 +89,9 @@ def main():
     # visualize
     # ###########   
     loss, acc = metrics.get_metrics()
-    vis = Visualize(cfg.image_root)
+    vis = Visualize(cfg)
     vis.plot_train(loss, acc)
 
 if __name__=="__main__":
     main()
+
