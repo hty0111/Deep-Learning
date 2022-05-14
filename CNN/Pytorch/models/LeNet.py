@@ -39,6 +39,6 @@ class LeNet(nn.Module):
 
 if __name__=="__main__":
     net = LeNet()
-    x = torch.randn(1, 1, 28, 28)
+    x = torch.randn(32, 1, 28, 28)
     y = net(x)
     print(y.shape)

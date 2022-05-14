@@ -9,6 +9,8 @@ from config.baseConfig import BaseConfig
 from models.LeNet import LeNet
 from models.AlexNet import AlexNet
 from models.VGG import VGG
+from models.GoogLeNet import GoogLeNet
+from models.ResNet import ResNet18
 from utils.label import Label
 from utils.metrics import Metrics
 from utils.visualize import Visualize
@@ -46,6 +48,10 @@ def main():
         model = AlexNet().to(device)
     elif "VGG" in cfg.model_name:
         model = VGG(cfg.model_name).to(device)
+    elif cfg.model_name == "GoogLeNet":
+        model = GoogLeNet().to(device)
+    # elif cfg.model_name == "ResNet18":
+    #     model = ResNet18().to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=cfg.lr)
 

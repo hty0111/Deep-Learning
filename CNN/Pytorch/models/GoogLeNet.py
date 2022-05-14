@@ -69,7 +69,7 @@ class GoogLeNet(nn.Module):
         return out
 
 if __name__=="__main__":
-    x = torch.randn(32, 1, 96, 96)
+    x = torch.randn(32, 1, 28, 28)
     net = GoogLeNet()
     y = net(x)
     print(y.shape)
